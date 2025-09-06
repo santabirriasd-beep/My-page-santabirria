@@ -1,30 +1,45 @@
+// components/ProductCard.jsx
 "use client";
-import Image from "next/image";
 
-export default function ProductCard({ item, onAdd }) {
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+export default function ProductCard({ product }) {
   return (
-    <div className="rounded-2xl bg-birria-card border border-white/10 overflow-hidden hover:translate-y-[-2px] duration-200 shadow-soft">
-      <div className="relative aspect-[4/3]">
-        <Image src={item.image} alt={item.name} fill className="object-cover" />
-        {item.badge && (
-          <span className="absolute left-3 top-3 px-2.5 py-1 rounded-full text-xs bg-birria-red">
-            {item.badge}
-          </span>
+    <motion.div
+      whileHover={{ scale: 1.04 }}
+      transition={{ type: "spring", stiffness: 200 }}
+      className="group relative bg-birria-bordo/95 border border-birria-madera rounded-2xl shadow-birria overflow-hidden flex flex-col"
+    >
+      {/* Imagen */}
+      <div className="relative w-full h-48 overflow-hidden">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-cover group-hover:scale-110 transition-transform duration-300"
+        />
+        {product.tags && (
+          <div className="absolute top-2 left-2 flex gap-1 flex-wrap">
+            {product.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="bg-kfc-red text-kfc-white text-xs font-bold px-2 py-1 rounded-md shadow-kfc"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
         )}
       </div>
-      <div className="p-4">
-        <div className="flex items-start justify-between gap-3">
-          <h4 className="font-semibold">{item.name}</h4>
-          <span className="text-birria-gold font-semibold">${item.price.toFixed(2)}</span>
+
+      {/* Contenido */}
+      <div className="flex flex-col justify-between flex-1 p-4 text-birria-crema">
+        <div>
+          <h3 className="font-headline text-xl text-kfc-white group-hover:text-kfc-red transition-colors">
+            {product.name}
+          </h3>
+          <p className="text-sm font-body opacity-80">{product.description}</p>
         </div>
-        <p className="text-sm text-white/70 mt-1">{item.description}</p>
-        <button
-          onClick={() => onAdd(item)}
-          className="mt-3 w-full rounded-lg bg-birria-red hover:bg-birria-red2 py-2 font-medium"
-        >
-          Agregar
-        </button>
-      </div>
-    </div>
-  );
-}
+
+        <div className="mt-4 flex items-center justify-between"
