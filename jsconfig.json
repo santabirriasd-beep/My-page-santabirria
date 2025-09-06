@@ -1,8 +1,22 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src", 
     "paths": {
-      "@/*": ["*"]
-    }
-  }
+      "@/*": ["*"], 
+      "@/components/*": ["components/*"],
+      "@/styles/*": ["styles/*"],
+      "@/lib/*": ["lib/*"],
+      "@/assets/*": ["assets/*"]
+    },
+    "jsx": "preserve",
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "checkJs": false,
+    "noEmit": true
+  },
+  "exclude": ["node_modules", ".next", "dist"],
+  "include": ["next-env.d.ts", "**/*.js", "**/*.jsx"]
 }
