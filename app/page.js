@@ -1,8 +1,13 @@
-export default function Home() {
+import Splash from "@/components/Splash";
+
+export default function Page() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-red-900 text-white">
-      <h1 className="text-4xl font-bold">🔥 Bienvenido a Santa Birria 🔥</h1>
+    <main className="min-h-screen bg-neutral-950 text-white">
+      <Splash />
+      <section className="mx-auto max-w-6xl px-6 py-24 text-center">
+        <h1 className="text-5xl font-extrabold tracking-tight">Santa Birria</h1>
+        <p className="mt-4 text-lg text-white/80">Sabor que sí llena.</p>
+      </section>
     </main>
   );
 }
-
