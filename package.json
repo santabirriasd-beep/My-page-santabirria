@@ -6,26 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "postinstall": "tailwindcss build -i ./src/styles/globals.css -o ./public/tailwind.css"
+    "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.3",                // versión estable de Next.js
+    "next": "14.2.3",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "framer-motion": "^11.2.6",
+    "lucide-react": "^0.379.0"
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.9",
+    "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.20",
+    "cssnano": "^6.1.2",
     "postcss": "^8.4.47",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^9.5.15",
     "tailwindcss": "^3.4.10",
-    "tailwindcss-animate": "^1.0.7",
-    "lucide-react": "^0.379.0",       // íconos modernos
-    "@tailwindcss/forms": "^0.5.9",
-    "@tailwindcss/typography": "^0.5.15",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "cssnano": "^6.1.2"
+    "tailwindcss-animate": "^1.0.7"
   },
   "engines": {
     "node": ">=18.0.0"
