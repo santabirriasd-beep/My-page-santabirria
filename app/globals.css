@@ -2,5 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
-html, body { background: #0C0C0C; }
+body {
+  font-family: 'Arial', sans-serif;
+}
