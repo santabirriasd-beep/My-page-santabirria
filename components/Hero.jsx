@@ -1,125 +1,197 @@
-// app/page.js
+// components/Hero.jsx
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ChevronRight, MapPin, Flame, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
 
-const WA_URL =
-  "https://wa.me/593984755209?text=Hola%20Santa%20Birria!%20Quiero%20hacer%20un%20pedido%20🍖🌮";
+export default function Hero({
+  title = "Santa Birria",
+  subtitle = "Cocina mexicana no repetitiva — QuesaTacos, birria y combos al estilo KFC, pero con alma birriera.",
+  ctaPrimary = { href: "/pedido", label: "Pedir ahora" },
+  ctaSecondary = { href: "/menu", label: "Ver menú" },
+  bgImage = "/images/hero.jpg", // reemplaza por tu imagen
+  videoSrc = "", // opcional: "/videos/hero.mp4"
+}) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-export default function Page() {
   return (
-    <main className="bg-neutral-950 text-white">
-      <Hero />
-      <section id="menu" className="max-w-6xl mx-auto px-4 py-20">
-        <h2 className="text-3xl md:text-4xl font-bold">Nuestro Menú</h2>
-        <p className="text-white/70 mt-2">
-          Próximamente el catálogo interactivo.
-        </p>
-      </section>
-    </main>
-  );
-}
+    <section className="relative isolate">
+      {/* Fondo: video o imagen */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {videoSrc ? (
+          <video
+            className="h-full w-full object-cover"
+            src={videoSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={bgImage}
+          />
+        ) : (
+          <Image
+            src={bgImage}
+            alt="Santa Birria Hero"
+            fill
+            priority
+            className="object-cover"
+          />
+        )}
 
-function Hero() {
-  return (
-    <section className="relative h-[92vh] min-h-[620px] w-full overflow-hidden">
-      <Image
-        src="/brand/hero.jpg"
-        alt="Santa Birria"
-        fill
-        priority
-        className="object-cover"
-      />
+        {/* Capa de estilo: degradé bordó + viñeta */}
+        <div className="absolute inset-0 bg-gradient-to-b from-birria-bordo/70 via-birria-bordo/70 to-[#000]/80" />
+        <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,.6)]" />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-neutral-900/40 to-neutral-950/95" />
+        {/* Textura opcional */}
+        <div className="absolute inset-0 bg-[url('/images/hero-texture.png')] opacity-20 mix-blend-overlay" />
+      </div>
 
-      <GlowDecor />
-
-      <div className="relative z-10 max-w-6xl mx-auto h-full px-6 flex items-center">
-        <div className="w-full text-center md:text-left">
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 backdrop-blur">
-            <span className="text-xl">🌮</span>
-            <span className="text-sm tracking-wide text-white/90">
-              Sabor auténtico · Entrega rápida
-            </span>
-          </div>
-
-          <div className="mt-7 flex items-center justify-center md:justify-start gap-5">
-            <div className="relative size-20 md:size-24 rounded-2xl bg-white/90 p-1 shadow-2xl ring-4 ring-red-600/40">
-              <Image
-                src="/brand/logo.png"
-                alt="Logo Santa Birria"
-                fill
-                className="object-contain rounded-xl"
-              />
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight">
-              Bienvenido a{" "}
-              <span className="bg-gradient-to-r from-red-500 via-red-400 to-amber-300 bg-clip-text text-transparent drop-shadow-[0_4px_30px_rgba(255,77,77,0.35)]">
-                Santa Birria
+      {/* Contenido */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="min-h-[78vh] lg:min-h-[86vh] flex items-center">
+          <div className="w-full max-w-3xl">
+            {/* Badges */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className="mb-4 flex flex-wrap gap-2"
+            >
+              <span className="inline-flex items-center gap-1 rounded-full bg-kfc-red/90 px-3 py-1 text-xs font-bold text-kfc-white shadow-kfc">
+                <Flame size={14} />
+                Top Ventas: QuesaTacos
               </span>
-            </h1>
-          </div>
+              <span className="inline-flex items-center gap-1 rounded-full border border-birria-madera/50 bg-birria-bordo/60 px-3 py-1 text-xs font-semibold text-birria-crema">
+                <Sparkles size={14} />
+                Combos con aguas frescas
+              </span>
+            </motion.div>
 
-          <p className="max-w-2xl mt-5 text-lg md:text-xl text-white/85 mx-auto md:mx-0">
-            Tacos, quesabirrias y antojos con ese consomé que enamora.
-          </p>
-
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <a
-              href={WA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-red-600 hover:bg-red-500 px-7 py-3 text-lg font-semibold shadow-[0_10px_30px_-5px_rgba(239,68,68,0.7)] transition"
+            {/* Título */}
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, type: "spring", stiffness: 120 }}
+              className="font-headline text-4xl sm:text-5xl lg:text-6xl leading-tight text-kfc-white drop-shadow"
             >
-              Hacer Pedido
-              <span>🔥</span>
-            </a>
+              {title}
+              <span className="block text-birria-crema/90 text-xl sm:text-2xl lg:text-3xl mt-2 font-body">
+                {subtitle}
+              </span>
+            </motion.h1>
 
-            <Link
-              href="#menu"
-              className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 hover:bg-white/15 backdrop-blur px-7 py-3 text-lg font-medium"
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
+              className="mt-6 flex flex-wrap items-center gap-3"
             >
-              Ver Menú
-            </Link>
+              <Link
+                href={ctaPrimary.href}
+                className="inline-flex items-center gap-2 rounded-2xl bg-kfc-red px-6 py-3 font-semibold text-kfc-white shadow-kfc transition-colors hover:bg-birria-acento"
+              >
+                {ctaPrimary.label}
+                <ChevronRight size={18} />
+              </Link>
+              <Link
+                href={ctaSecondary.href}
+                className="inline-flex items-center gap-2 rounded-2xl border border-birria-madera/70 bg-birria-bordo/60 px-6 py-3 font-semibold text-birria-crema transition-colors hover:bg-birria-madera/20 hover:text-kfc-white"
+              >
+                {ctaSecondary.label}
+              </Link>
+
+              {/* Chip de ubicación (social proof) */}
+              <span className="ml-1 inline-flex items-center gap-1 rounded-xl bg-black/30 px-3 py-2 text-xs font-medium text-birria-crema">
+                <MapPin size={14} /> Santo Domingo — Ecuador
+              </span>
+            </motion.div>
+
+            {/* Highlights / bullets */}
+            <motion.ul
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.28 }}
+              className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-birria-crema/90"
+            >
+              {[
+                "Birria real, consomé de verdad",
+                "Combos tipo KFC, pero con aguas frescas",
+                "Listos para llevar o comer aquí",
+              ].map((text, i) => (
+                <li
+                  key={i}
+                  className="rounded-xl border border-birria-madera/40 bg-birria-bordo/40 px-3 py-2 backdrop-blur-sm"
+                >
+                  {text}
+                </li>
+              ))}
+            </motion.ul>
           </div>
 
-          <div className="mt-10 flex items-center gap-3 text-white/70 justify-center md:justify-start">
-            <div className="relative h-8 w-8">
-              <Image
-                src="/brand/tiktok.png"
-                alt="TikTok"
-                fill
-                className="object-contain opacity-90"
-              />
+          {/* Mockup de producto al lado (desktop) */}
+          <motion.aside
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.22, type: "spring", stiffness: 120 }}
+            className="hidden lg:block ml-auto w-[40%] max-w-[520px] relative"
+          >
+            {/* Tarjeta flotante con imagen de producto */}
+            <div className="relative rounded-3xl border border-birria-madera/50 bg-black/30 p-3 backdrop-blur-sm shadow-birria">
+              <div className="relative h-[360px] w-full overflow-hidden rounded-2xl">
+                <Image
+                  src="/images/menu/quesatacos.jpg" // reemplaza por tu hero product
+                  alt="QuesaTacos Santa Birria"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="mt-3 flex items-center justify-between">
+                <div>
+                  <h3 className="font-headline text-kfc-white text-xl">
+                    QuesaTacos
+                  </h3>
+                  <p className="text-birria-crema/80 text-sm">
+                    Con consomé — 🔥 Top Ventas
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-kfc-red font-bold text-lg">$6.50</p>
+                  <Link
+                    href="/pedido"
+                    className="text-sm font-semibold text-kfc-white/90 hover:text-kfc-white"
+                  >
+                    Ordenar →
+                  </Link>
+                </div>
+              </div>
             </div>
-            <div className="relative h-8 w-8">
-              <Image
-                src="/brand/instagram.png"
-                alt="Instagram"
-                fill
-                className="object-contain opacity-90"
-              />
-            </div>
-            <span className="text-sm">Síguenos para promos y combos</span>
-          </div>
+
+            {/* Glow decorativo */}
+            {mounted && (
+              <div className="pointer-events-none absolute -z-10 right-[-10%] top-[10%] h-64 w-64 rounded-full bg-kfc-red/30 blur-[80px]" />
+            )}
+          </motion.aside>
         </div>
       </div>
 
-      <div className="absolute bottom-6 left-0 right-0 flex justify-center">
-        <span className="animate-bounce text-white/80">▾</span>
-      </div>
+      {/* Ola / divider inferior */}
+      <svg
+        className="block w-full text-[#0b0b0b]"
+        viewBox="0 0 1440 80"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+      >
+        <path
+          fill="currentColor"
+          d="M0,32L48,37.3C96,43,192,53,288,58.7C384,64,480,64,576,53.3C672,43,768,21,864,26.7C960,32,1056,64,1152,69.3C1248,75,1344,53,1392,42.7L1440,32L1440,80L1392,80C1344,80,1248,80,1152,80C1056,80,960,80,864,80C768,80,672,80,576,80C480,80,384,80,288,80C192,80,96,80,48,80L0,80Z"
+        />
+      </svg>
     </section>
-  );
-}
-
-function GlowDecor() {
-  return (
-    <>
-      <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-red-600/25 blur-3xl animate-pulse" />
-      <div className="absolute top-1/3 -right-16 h-56 w-56 rounded-full bg-amber-400/25 blur-3xl animate-[pulse_2.5s_ease-in-out_infinite]" />
-      <div className="absolute bottom-10 left-10 h-40 w-40 rounded-full bg-red-500/20 blur-2xl" />
-    </>
   );
 }
